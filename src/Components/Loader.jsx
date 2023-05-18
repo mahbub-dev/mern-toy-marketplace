@@ -1,4 +1,4 @@
-import React from 'react';
+
 import '../assets/loader.css'
 const DotSpinner = () => {
   return (
