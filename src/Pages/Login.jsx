@@ -1,26 +1,44 @@
 import React, { useEffect, useState } from 'react';
-import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth'
-import { Link } from 'react-router-dom';
+import { GoogleAuthProvider, getAuth, signInWithPopup, signInWithEmailAndPassword } from 'firebase/auth'
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import app from '../../firebase.config';
+import { useAuthContext } from '../Providers/authProvider';
+import { toast } from 'react-toastify';
 const Login = () => {
-    const auth = getAuth();
+    const { isUser, setLoggedUser } = useAuthContext()
+    const auth = getAuth(app);
+    const navigate = useNavigate()
     const provider = new GoogleAuthProvider()
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    if (isUser) { return <Navigate to={'/'} /> }
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Handle form submission here
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                setLoggedUser(user)
+                localStorage.setItem('uid', user?.uid)
+                navigate('/')
+            })
+            .catch((error) => {
+                const errorMessage = error.message;
+                toast.error(errorMessage)
+            });
     };
 
     const handleGoogleLogin = () => {
         signInWithPopup(auth, provider)
             .then((result) => {
                 // Handle successful Google login
-                console.log('Google login successful:', result.user);
+                localStorage.setItem('uid', result?.user?.uid)
+                setLoggedUser(result.user)
+                navigate('/')
+
             })
             .catch((error) => {
                 // Handle error during Google login
-                console.error('Google login error:', error);
+                toast.error(error?.message)
             });
     };
 
@@ -58,7 +76,7 @@ const Login = () => {
                     <div className="flex items-center justify-between mb-6">
                         <button
                             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                            type="button"
+                            type="submit"
                         >
                             Sign In
 

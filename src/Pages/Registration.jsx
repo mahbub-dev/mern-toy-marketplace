@@ -1,15 +1,36 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
+import app from '../../firebase.config';
+import { toast } from 'react-toastify';
+import { useAuthContext } from '../Providers/authProvider';
+import { Navigate } from 'react-router-dom';
+
 
 const Registration = () => {
+    const { isUser } = useAuthContext()
+    const navigate = useNavigate()
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [photoURL, setPhotoURL] = useState('');
-
+    if (isUser) { return <Navigate to={'/'} /> }
+    const auth = getAuth(app)
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Handle form submission here
+        createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                // Signed in 
+                const user = userCredential.user;
+                updateProfile(user, { displayName: name, photoURL })
+                localStorage.setItem('uid', user.uid)
+                navigate('/')
+            })
+            .catch((error) => {
+                const errorMessage = error.message;
+                toast.error(errorMessage)
+                // ..
+            });
     };
 
     return (
@@ -71,7 +92,7 @@ const Registration = () => {
                     <div className="flex items-center justify-between mb-6">
                         <button
                             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                            type="button"
+                            type="submit"
                         >
                             Sign up
 
