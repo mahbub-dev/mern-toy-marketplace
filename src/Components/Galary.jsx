@@ -18,6 +18,7 @@ const GallerySection = () => {
     ];
 
     return (
+        <>
         <section className="py-10 md:px-10 px-5 bg-gray-100">
             <div className="container mx-auto">
                 <h2 className="text-3xl font-bold mb-8 text-center">Gallery</h2>
@@ -39,6 +40,8 @@ const GallerySection = () => {
                 </div>
             </div>
         </section>
+        <hr />
+        </>
     );
 };
 
