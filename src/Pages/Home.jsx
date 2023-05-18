@@ -1,7 +1,12 @@
+import BannerSlider from "../Components/Slider"
 
+BannerSlider
 const Home = () => {
   return (
-    <div>Home</div>
+    <div>
+      <BannerSlider/>
+      
+    </div>
   )
 }
 

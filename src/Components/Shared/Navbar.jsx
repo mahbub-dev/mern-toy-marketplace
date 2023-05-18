@@ -43,7 +43,7 @@ const Navbar = () => {
                     </div>
                     <div className="flex items-center">
                         {isUser ?
-                            loggedUser?.photoURL ? <img className="h-[35px] w-[35px] rounded-full" src={loggedUser?.photoURL} alt="Profile" /> : <DotSpinner /> :
+                            loggedUser?.photoURL ? <img className="h-[35px] w-[35px] rounded-full" src={loggedUser?.photoURL} title={loggedUser?.displayName} alt="Profile" /> : <DotSpinner /> :
                             <Link to="/login" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Login</Link>
                         }
 
