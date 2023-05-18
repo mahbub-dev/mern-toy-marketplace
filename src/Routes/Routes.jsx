@@ -4,7 +4,7 @@ import {
 import Home from "../Pages/Home";
 import NotFoundPage from "../Pages/NotFound";
 import App from "../App";
-
+import Registration from "../Pages/Registration";
 
 const router = createBrowserRouter([
     {
@@ -15,6 +15,10 @@ const router = createBrowserRouter([
             {
                 path: '/',
                 element: <Home />
+            }
+            , {
+                path: '/register',
+                element: <Registration />
             }
         ]
         ,

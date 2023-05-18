@@ -1,48 +1,63 @@
-import logo from '../../assets/logo.png'
+import React, { useState } from 'react';
+import logo  from '../../assets/logo.png'
+import menu  from '../../assets/menu.png'
 const Navbar = () => {
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggleNavbar = () => {
+        setIsOpen(!isOpen);
+    };
+
     return (
-        <div className="navbar bg-base-100">
-            <div className="navbar-start">
-                <div className="dropdown">
-                    <label tabIndex={0} className="btn btn-ghost lg:hidden">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
-                    </label>
-                    <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                        <li><a>Item 1</a></li>
-                        <li tabIndex={0}>
-                            <a className="justify-between">
-                                Parent
-                                <svg className="fill-current" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
-                            </a>
-                            <ul className="p-2">
-                                <li><a>Submenu 1</a></li>
-                                <li><a>Submenu 2</a></li>
-                            </ul>
-                        </li>
-                        <li><a>Item 3</a></li>
-                    </ul>
+        <nav className="bg-gray-800">
+            <div className="max-w-7xl mx-auto px-4">
+                <div className="flex h-[50px] justify-between">
+                    <div className="flex items-center">
+                        <div className="flex-shrink-0 flex">
+                            {/* Website logo */}
+                            <img className="h-10 md:hidden" onClick={toggleNavbar} src={menu} alt="menu" />
+                            <img className="h-10 " src={logo} alt="Logo" />
+                        </div>
+                        <div className="hidden md:block ml-4">
+                            {/* Website name */}
+                            <span className="text-white font-semibold text-lg">GeniusGadgets</span>
+                        </div>
+                    </div>
+                    <div className="hidden md:flex items-center">
+                        {/* Home */}
+                        <a href="/" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                        {/* All Toys */}
+                        <a href="/toys" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">All Toys</a>
+                        {/* My Toys */}
+                        <a href="/my-toys" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">My Toys</a>
+                        {/* Add A Toy */}
+                        <a href="/add-toy" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Add A Toy</a>
+                        {/* Blogs */}
+                        <a href="/blogs" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Blogs</a>
+                    </div>
+                    <div className="flex items-center">
+                        {/* User profile picture */}
+                        <img className="h-[35px] w-[35px] rounded-full" src="/profile.jpg" alt="Profile" />
+                    </div>
                 </div>
-                <a className="btn btn-ghost normal-case text-xl">
-                    <img src={logo} alt="logo" className='h-[50px]' />
-                    <span>GeniusGadgets</span>
-                </a>
             </div>
-            <div className="navbar-center hidden lg:flex">
-                <ul className="menu menu-horizontal px-1">
-                    <li><a>Home</a></li>
-                    <li><a>All Toys</a></li>
-                    <li><a>My Toys</a></li>
-                    <li><a>Add A Toy</a></li>
-                    <li><a>Blogs</a></li>
-                    <li><a><img src="" className='w-[35px] h-[35px] rounded-full' alt="profilePicture" /></a></li>
-                    
-                </ul>
+            {/* Mobile menu */}
+            <div className={`md:hidden ${isOpen ? 'block' : 'hidden'}`}>
+                <div className="px-2 pt-2 pb-3 sm:px-3">
+                    {/* Home */}
+                    <a href="/" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                    {/* All Toys */}
+                    <a href="/toys" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">All Toys</a>
+                    {/* My Toys */}
+                    <a href="/my-toys" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">My Toys</a>
+                    {/* Add A Toy */}
+                    <a href="/add-toy" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Add A Toy</a>
+                    {/* Blogs */}
+                    <a href="/blogs" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Blogs</a>
+                </div>
             </div>
-            <div className="navbar-end">
-                <a className="btn">Get started</a>
-            </div>
-        </div>
+        </nav>
+
     )
 }
-
 export default Navbar
