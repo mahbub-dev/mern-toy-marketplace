@@ -12,7 +12,7 @@ import ToyDetailsPage from "../Pages/ToyDeatails";
 import AddToyPage from "../Pages/AddToyPage";
 import PrivateRoutes from "./PrivateRoutes";
 import MyToys from "../Pages/MyToys";
-
+const url = import.meta.env.VITE_APP_API_SERVER_URI
 
 
 const router = createBrowserRouter([
@@ -23,7 +23,16 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/',
-                element: <Home />
+                element: <Home />,
+                loader: async () => {
+                    try {
+                        const res = await fetch(`${url}/home`)
+                        const data = await res.json()
+                        return (data)
+                    } catch (error) {
+                        console.log(error)
+                    }
+                }
             }
             , {
                 path: '/register',
@@ -37,17 +46,32 @@ const router = createBrowserRouter([
                 element: <Blogs />
             }, {
                 path: '/all-toys',
-                element: <AllToys />
+                element: <AllToys />,
+                loader: async () => {
+                    try {
+                        const res = await fetch(`${url}/all_toys`)
+                        const data = await res.json()
+                        return data
+                    } catch (error) {
+                        console.log(error)
+                    }
+                }
             },
             {
                 path: '/add-toy',
                 element: <PrivateRoutes> <AddToyPage /></PrivateRoutes>
             },
             {
-                path: '/toys-details/:id',
+                path: '/toy/:id',
                 element: <PrivateRoutes> <ToyDetailsPage /></PrivateRoutes>
                 , loader: async ({ params }) => {
-                    return
+                    try {
+                        const res = await fetch(`${url}/toy/${params.id}`)
+                        const data = await res.json()
+                        return data
+                    } catch (error) {
+                        console.log(error)
+                    }
                 }
             }, {
                 path: '/my-toys',

@@ -6,7 +6,7 @@ import Navbar from './Components/Shared/Navbar'
 import 'react-toastify/dist/ReactToastify.css';
 function App() {
   return (
-    <div className='max-w-[1240px] m-auto'>
+    <div className='max-w-[1240px]  m-auto'>
       <ToastContainer />
       <Navbar />
       <Outlet />

@@ -16,11 +16,9 @@ const BannerSlider = () => {
     };
 
     const banners = [
-        'https://www.alifstores.com/media/wysiwyg/Kid_s_Development_Web_Banner_V1.1Educational_Toys_-_1080x540px_1.jpg',
-        'https://img.freepik.com/premium-psd/social-media-banner-children-s-month-all-toy-line-sale_220664-3407.jpg',
-        'https://www.alifstores.com/media/wysiwyg/Kid_s_Development_Web_Banner_V1.1Science_-_1080x540px.jpg',
-        
-
+        "https://www.alifstores.com/media/wysiwyg/Kid_s_Development_Web_Banner_V1.1Educational_Toys_-_1080x540px_1.jpg",
+        "https://img.freepik.com/premium-psd/social-media-banner-children-s-month-all-toy-line-sale_220664-3407.jpg",
+        "https://www.alifstores.com/media/wysiwyg/Kid_s_Development_Web_Banner_V1.1Science_-_1080x540px.jpg",
     ];
 
     return (

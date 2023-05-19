@@ -41,7 +41,7 @@ const AddToyPage = () => {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen py-5 bg-gray-200">
+        <div className="flex items-center justify-center min-h-screen py-5 bg-gray-700">
             <div className="bg-white p-8 md:w-[500px] w-[320px] rounded shadow-md">
                 <h2 className="text-2xl font-bold mb-4">Add Toy</h2>
                 <form onSubmit={handleSubmit} className=" mx-auto">

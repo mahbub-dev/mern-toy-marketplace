@@ -1,40 +1,26 @@
-import React, { useState } from 'react';
-
+import { useState } from 'react';
+import { useLoaderData, useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../Providers/authProvider';
 const AllToys = () => {
     const [searchTerm, setSearchTerm] = useState('');
-
-    const toys = [
-        {
-            seller: 'John Doe',
-            name: 'ABC Puzzle',
-            subCategory: 'Math Toys',
-            price: 19.99,
-            quantity: 5
-        },
-        {
-            name: 'Word Explorer',
-            subCategory: 'Language Toys',
-            price: 14.99,
-            quantity: 8
-        },
-        {
-            seller: 'Jane Smith',
-            name: 'Building Blocks',
-            subCategory: 'Engineering Toys',
-            price: 24.99,
-            quantity: 3
-        }
-        // Add more toy objects as needed
-    ];
-
-    const handleSearch = () => {
-        // Logic to handle the search term and perform search
-        console.log('Search term:', searchTerm);
+    const navigate = useNavigate()
+    const { isUser } = useAuthContext()
+    const data = useLoaderData()
+    const [toys, setToys] = useState(data)
+    const handleSearch = async () => {
+        const res = await fetch(`${import.meta.env.VITE_APP_API_SERVER_URI}/all_toys/?toy_name=${searchTerm}`)
+        const data = await res.json()
+        setToys(data)
     };
 
+    const handleView = (id) => {
+        if (isUser) {
+            navigate(`/toy/${id}`)
+        } else navigate('/login')
+    }
     return (
-        <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center mb-4 py-5">All Toys</h2>
+        <div className="container min-h-[600px] mx-auto bg-gray-700 pb-5 px-4">
+            <h2 className="text-3xl text-white font-bold text-center mb-4 py-5">All Toys</h2>
 
             <div className="mb-4 flex">
                 <input
@@ -46,6 +32,7 @@ const AllToys = () => {
                 />
                 <button
                     className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
+                    type='button'
                     onClick={handleSearch}
                 >
                     Search
@@ -65,14 +52,14 @@ const AllToys = () => {
                     </thead>
                     <tbody>
                         {toys.map((toy, index) => (
-                            <tr key={index} className={(index % 2 === 0) ? 'bg-gray-100' : ''}>
-                                <td className="py-2 px-4 border">{toy.seller || '-'}</td>
-                                <td className="py-2 px-4 border">{toy.name}</td>
+                            <tr key={index} className={`text-center ${(index % 2 === 0) ? 'bg-gray-100' : 'bg-gray-200'}`}>
+                                <td className="py-2 px-4 border">{toy.sellerName || '-'}</td>
+                                <td className="py-2 px-4 border">{toy.toyName}</td>
                                 <td className="py-2 px-4 border">{toy.subCategory}</td>
-                                <td className="py-2 px-4 border">${toy.price.toFixed(2)}</td>
-                                <td className="py-2 px-4 border">{toy.quantity}</td>
+                                <td className="py-2 px-4 border">${toy.price}</td>
+                                <td className="py-2 px-4 border">{toy.availableQuantity}</td>
                                 <td className="py-2 px-4 border">
-                                    <button className="bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded">
+                                    <button onClick={() => handleView(toy._id)} className=" hover:bg-blue-600 text-white py-1 px-3 rounded">
                                         View Details
                                     </button>
                                 </td>

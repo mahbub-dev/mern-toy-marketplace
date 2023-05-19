@@ -1,7 +1,6 @@
 import { useState } from "react";
 import ConfirmModal from "../Components/ConfirmModal";
 import UpdateModal from "../Components/UpdateModal";
-import { useAsyncError } from "react-router-dom";
 const MyToys = () => {
     const [isDeleteOpen, setIsDeleteOpen] = useState({ isOpen: false, id: '' })
     const [isUpdateOpen, setIsUpdateOpen] = useState({ isOpen: false, data: {} })
@@ -50,8 +49,8 @@ const MyToys = () => {
 
 
     return (
-        <div className=" p-5 mx-auto py-8 bg-gray-100">
-            <h2 className="text-2xl font-bold text-center text-gray-800 mb-4">My Toys</h2>
+        <div className=" p-5 mx-auto min-h-[720px] py-8 bg-gray-700">
+            <h2 className="text-2xl font-bold text-center text-white mb-4">My Toys</h2>
             {
                 isUpdateOpen.isOpen && <UpdateModal
                     isOpen={isUpdateOpen.isOpen}

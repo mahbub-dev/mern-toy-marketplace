@@ -2,8 +2,6 @@
 const Blogs = () => {
     return (
         <div className="container mx-auto px-4">
-           
-
             <div className="mb-8">
                 <h3 className="text-xl font-semibold mb-2">What is an Access Token and Refresh Token?</h3>
                 <p className="text-gray-600 mb-4">
