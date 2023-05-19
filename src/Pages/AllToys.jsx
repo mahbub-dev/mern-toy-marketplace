@@ -51,8 +51,7 @@ const AllToys = () => {
                     Search
                 </button>
             </div>
-            <div className='overflow-scroll'>
-
+            <div className='overflow-auto'>
                 <table className="w-full  border-collapse">
                     <thead>
                         <tr className="bg-gray-200">

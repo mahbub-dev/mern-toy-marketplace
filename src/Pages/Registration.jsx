@@ -36,7 +36,7 @@ const Registration = () => {
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-200">
             <div className="bg-white p-8 md:w-[500px] rounded shadow-md">
-                <h2 className="text-2xl font-bold mb-4">Registration</h2>
+            <h2 className="text-2xl font-bold mb-4">Registration</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <label htmlFor="name" className="block text-gray-700 font-bold mb-2">

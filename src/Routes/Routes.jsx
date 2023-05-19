@@ -8,6 +8,10 @@ import Registration from "../Pages/Registration";
 import Login from "../Pages/Login";
 import Blogs from "../Pages/Blogs";
 import AllToys from "../Pages/AllToys";
+import ToyDetailsPage from "../Pages/ToyDeatails";
+import AddToyPage from "../Pages/AddToyPage";
+import PrivateRoutes from "./PrivateRoutes";
+
 
 
 const router = createBrowserRouter([
@@ -33,6 +37,17 @@ const router = createBrowserRouter([
             }, {
                 path: '/all-toys',
                 element: <AllToys />
+            },
+            {
+                path: '/add-toy',
+                element: <PrivateRoutes> <AddToyPage /></PrivateRoutes>
+            },
+            {
+                path: '/toys-details/:id',
+                element: <PrivateRoutes> <ToyDetailsPage /></PrivateRoutes>
+                , loader: async ({ params }) => {
+                    return
+                }
             }
         ]
         ,
