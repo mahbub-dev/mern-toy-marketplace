@@ -10,8 +10,8 @@ const Home = () => {
   return (
     <div className="bg-gray-700 text-white">
       <BannerSlider />
-      <GallerySection galary={galary} />
-      <ShopByCategory shop_category={shop_category} />
+      {galary && <GallerySection galary={galary} />}
+      {shop_category && <ShopByCategory shop_category={shop_category} />}
       <DealsAndDiscounts />
       <AboutUs />
     </div>

@@ -32,6 +32,8 @@ const router = createBrowserRouter([
                         return (data)
                     } catch (error) {
                         console.log(error)
+                        toast.error(error.message)
+                        return {}
                     }
                 }
             }
@@ -55,6 +57,8 @@ const router = createBrowserRouter([
                         return data
                     } catch (error) {
                         console.log(error)
+                        toast.error(error.message)
+                        return []
                     }
                 }
             },
@@ -73,6 +77,7 @@ const router = createBrowserRouter([
                     } catch (error) {
                         console.log(error)
                         toast(error.message)
+                        return {}
                     }
                 }
             }, {
@@ -85,6 +90,7 @@ const router = createBrowserRouter([
                         return data
                     } catch (error) {
                         toast.error(error?.message)
+                        return []
                     }
                 }
             },
