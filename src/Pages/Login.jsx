@@ -1,10 +1,12 @@
-import  {  useState } from 'react';
+/* eslint-disable react/no-unescaped-entities */
+import { useState } from 'react';
 import { GoogleAuthProvider, getAuth, signInWithPopup, signInWithEmailAndPassword } from 'firebase/auth'
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import app from '../../firebase.config';
 import { useAuthContext } from '../Providers/authProvider';
 import { toast } from 'react-toastify';
 const Login = () => {
+    const location = useLocation();
     const { isUser, setLoggedUser } = useAuthContext()
     const auth = getAuth(app);
     const navigate = useNavigate()
@@ -19,7 +21,8 @@ const Login = () => {
                 const user = userCredential.user;
                 setLoggedUser(user)
                 localStorage.setItem('uid', user?.uid)
-                navigate('/')
+                const from = location.state?.from || '/';
+                navigate(from, { replace: true })
             })
             .catch((error) => {
                 const errorMessage = error.message;
@@ -33,7 +36,8 @@ const Login = () => {
                 // Handle successful Google login
                 localStorage.setItem('uid', result?.user?.uid)
                 setLoggedUser(result.user)
-                navigate('/')
+                const from = location.state?.from || '/';
+                navigate(from, { replace: true })
 
             })
             .catch((error) => {

@@ -1,4 +1,6 @@
+
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 const AddToyPage = () => {
     const [formData, setFormData] = useState({
@@ -21,23 +23,37 @@ const AddToyPage = () => {
         }));
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Handle form submission logic here
-        // Access the form data using formData object
-        console.log(formData);
-        // Reset the form fields after submission if needed
-        setFormData({
-            picture: '',
-            name: '',
-            sellerName: '',
-            sellerEmail: '',
-            subCategory: '',
-            price: '',
-            rating: '',
-            quantity: '',
-            description: '',
-        });
+    const handleSubmit = async (e) => {
+        try {
+            e.preventDefault();
+            if (Object.values(formData).some(i => i === '')) {
+                toast.warning('Please fill all the fields before submit')
+                return
+            }
+            const res = await fetch(`${import.meta.env.VITE_APP_API_SERVER_URI}/add_toy`, {
+                headers: { "Content-Type": 'application/json' },
+                method: 'post',
+                body: JSON.stringify(formData)
+            })
+            await res.json()
+            toast.success('Toy added successfuly')
+            // Reset the form fields after submission if needed
+            setFormData({
+                picture: '',
+                name: '',
+                sellerName: '',
+                sellerEmail: '',
+                subCategory: '',
+                price: '',
+                rating: '',
+                quantity: '',
+                description: '',
+            });
+        } catch (error) {
+            console.log(error)
+            toast.error(error?.message)
+        }
+
     };
 
     return (

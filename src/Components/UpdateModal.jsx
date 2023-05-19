@@ -18,7 +18,7 @@ const UpdateModal = ({ isOpen, onCancel, onUpdate, initialPrice, initialQuantity
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-            <div className="bg-white fixed p-4 rounded shadow-lg">
+            <div className="bg-white min-w-[300px]  fixed p-4 rounded shadow-lg">
                 <h2 className="text-lg font-semibold text-gray-800 mb-4">Update Toy</h2>
                 <div className="mb-4">
                     <label className="block text-gray-700 font-bold mb-2" htmlFor="price">

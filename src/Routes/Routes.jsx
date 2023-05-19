@@ -12,6 +12,7 @@ import ToyDetailsPage from "../Pages/ToyDeatails";
 import AddToyPage from "../Pages/AddToyPage";
 import PrivateRoutes from "./PrivateRoutes";
 import MyToys from "../Pages/MyToys";
+import { toast } from "react-toastify";
 const url = import.meta.env.VITE_APP_API_SERVER_URI
 
 
@@ -71,11 +72,21 @@ const router = createBrowserRouter([
                         return data
                     } catch (error) {
                         console.log(error)
+                        toast(error.message)
                     }
                 }
             }, {
                 path: '/my-toys',
-                element: <PrivateRoutes> <MyToys /></PrivateRoutes>
+                element: <PrivateRoutes> <MyToys /></PrivateRoutes>,
+                loader: async () => {
+                    try {
+                        const res = await fetch(`${url}/mytoy`)
+                        const data = await res.json()
+                        return data
+                    } catch (error) {
+                        toast.error(error?.message)
+                    }
+                }
             },
         ]
         ,

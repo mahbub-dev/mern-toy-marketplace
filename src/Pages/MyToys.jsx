@@ -1,50 +1,52 @@
 import { useState } from "react";
 import ConfirmModal from "../Components/ConfirmModal";
 import UpdateModal from "../Components/UpdateModal";
+import { useLoaderData } from "react-router-dom";
+import { toast } from "react-toastify";
 const MyToys = () => {
     const [isDeleteOpen, setIsDeleteOpen] = useState({ isOpen: false, id: '' })
     const [isUpdateOpen, setIsUpdateOpen] = useState({ isOpen: false, data: {} })
-    const toys = [
-        {
-            _id: 1,
-            imageUrl: 'https://m.media-amazon.com/images/I/81UnWUd5NbL.jpg',
-            name: 'Toy 1',
-            sellerName: 'John Doe',
-            sellerEmail: 'john.doe@example.com',
-            subCategory: 'Math Toys',
-            price: 19.99,
-            rating: 4.5,
-            quantity: 10,
-            description: 'This is a math toy for learning numbers and counting.',
-        },
-        {
-            _id: 2,
-            imageUrl: 'https://m.media-amazon.com/images/I/81txbXMFWQL._AC_SL1500_.jpg',
-            name: 'Toy 2',
-            sellerName: 'Jane Smith',
-            sellerEmail: 'jane.smith@example.com',
-            subCategory: 'Language Toys',
-            price: 14.99,
-            rating: 3.8,
-            quantity: 5,
-            description: 'This is a language toy for learning vocabulary and spelling.',
-        },
-        // Add more toys as needed
-    ];
+    const data = useLoaderData()
+    const [toys, setToys] = useState(data)
+    const url = import.meta.env.VITE_APP_API_SERVER_URI
 
-    const handleUpdateToy = (toyId) => {
-        // Handle updating the toy information
-        // Redirect to the toy update page or show a modal for updating the toy details
-        // You can use your preferred routing mechanism
-        // For example, if you're using React Router:
-        // history.push(`/toys/${toyId}/update`);
-        console.log(isUpdateOpen.data._id)
+
+    const handleUpdateToy = async (price, quantity, description) => {
+        try {
+            const updateData = { _id: isUpdateOpen.data._id, price, quantity, description }
+            const res = await fetch(`${url}/mytoy`, {
+                headers: { 'Content-Type': 'application/json' },
+                method: 'put',
+                body: JSON.stringify(updateData)
+            })
+            const data = await res.json()
+            setToys(p =>
+                [...p.filter(i => i._id !== data._id), data]
+            )
+            toast.success('Toy updated successfully')
+        } catch (error) {
+            console.log(error)
+            toast(error.message)
+        }
     };
 
-    const handleDeleteToy = (toyId) => {
-        console.log(isDeleteOpen.id)
-        // Handle deleting the toy
-        // You can show a confirmation modal before deleting the toy
+    const handleDeleteToy = async () => {
+        if (isDeleteOpen.id) {
+            try {
+                const res = await fetch(`${url}/mytoy/${isDeleteOpen.id}`, {
+                    headers: { 'Content-Type': 'application/json' },
+                    method: 'delete'
+                })
+                await res.json()
+                setToys(p => p.filter(i => i._id !== isDeleteOpen.id))
+                toast.success('Toy is deleted successfuly')
+                setIsDeleteOpen({ isOpen: false, id: '' })
+            } catch (error) {
+                console.log(error)
+                toast.error(error.message)
+            }
+
+        }
     };
 
 
@@ -53,7 +55,7 @@ const MyToys = () => {
             <h2 className="text-2xl font-bold text-center text-white mb-4">My Toys</h2>
             {
                 isUpdateOpen.isOpen && <UpdateModal
-                    isOpen={isUpdateOpen.isOpen}
+                    isOpen={isUpdateOpen}
                     onCancel={() => setIsUpdateOpen(p => ({ ...p, isOpen: !p.isOpen }))}
                     onUpdate={handleUpdateToy}
                     initialPrice={isUpdateOpen?.data?.price}
@@ -84,7 +86,7 @@ const MyToys = () => {
                         {toys.map((toy) => (
                             <tr key={toy._id} className="text-gray-700">
                                 <td className="py-2 px-4 border-b">
-                                    <img src={toy.imageUrl} alt={toy.name} className="w-10 h-10 rounded-full" />
+                                    <img src={toy.picture} alt={toy.name} className="w-10 h-10 rounded-full" />
                                 </td>
                                 <td className="py-2 px-4 border-b">{toy.name}</td>
                                 <td className="py-2 px-4 border-b">{toy.sellerName}</td>
