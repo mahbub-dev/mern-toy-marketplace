@@ -11,6 +11,7 @@ import AllToys from "../Pages/AllToys";
 import ToyDetailsPage from "../Pages/ToyDeatails";
 import AddToyPage from "../Pages/AddToyPage";
 import PrivateRoutes from "./PrivateRoutes";
+import MyToys from "../Pages/MyToys";
 
 
 
@@ -48,7 +49,10 @@ const router = createBrowserRouter([
                 , loader: async ({ params }) => {
                     return
                 }
-            }
+            }, {
+                path: '/my-toys',
+                element: <PrivateRoutes> <MyToys /></PrivateRoutes>
+            },
         ]
         ,
     },
