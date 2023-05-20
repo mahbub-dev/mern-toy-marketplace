@@ -1,10 +1,8 @@
 import { useState } from 'react';
 import { useLoaderData, useNavigate } from 'react-router-dom';
-import { useAuthContext } from '../Providers/authProvider';
 const AllToys = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const navigate = useNavigate()
-    const { isUser } = useAuthContext()
     const data = useLoaderData()
     const [toys, setToys] = useState(data)
     const handleSearch = async () => {
@@ -17,7 +15,6 @@ const AllToys = () => {
     return (
         <div className="container min-h-[600px] mx-auto bg-gray-700 pb-5 px-4">
             <h2 className="text-3xl text-white font-bold text-center mb-4 py-5">All Toys</h2>
-
             <div className="mb-4 flex">
                 <input
                     type="text"

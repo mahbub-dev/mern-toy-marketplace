@@ -49,10 +49,33 @@ const MyToys = () => {
         }
     };
 
+    const handleSorting = async (sortOrder) => {
+        try {
+            const res = await fetch(`${url}/mytoy/?sort=${sortOrder}`)
+            const data = await res.json()
+            setToys(data)
+        } catch (error) {
+            console.log(error)
+            toast.error(error.message)
+
+        }
+    }
 
     return (
         <div className=" p-5 mx-auto min-h-[720px] py-8 bg-gray-700">
-            <h2 className="text-2xl font-bold text-center text-white mb-4">My Toys</h2>
+            <div className="flex items-center space-x-2 mb-5">
+                <label htmlFor="sort-select" className="text-gray-100">
+                    Sort By Price:
+                </label>
+                <select
+                    id="sort-select"
+                    onChange={(e) => handleSorting(e.target.value)}
+                    className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-gray-500"
+                >
+                    <option value="1">Ascending</option>
+                    <option value="-1">Descending</option>
+                </select>
+            </div>
             {
                 isUpdateOpen.isOpen && <UpdateModal
                     isOpen={isUpdateOpen}
