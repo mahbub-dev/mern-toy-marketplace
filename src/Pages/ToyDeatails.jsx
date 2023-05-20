@@ -15,7 +15,7 @@ const ToyDetailsPage = () => {
           <p className="text-gray-100 text-base">{toy.detailDescription}</p>
         </div>
         <div className="px-6 py-4">
-          <p className="text-gray-400 font-semibold">${toy.price.toFixed(2)}</p>
+          <p className="text-gray-400 font-semibold">${toy.price}</p>
           <p className="text-gray-400">{toy.sellerName}</p>
           <p className="text-gray-400">{toy.sellerEmail}</p>
           <p className="text-gray-400">Rating: {toy.rating}</p>

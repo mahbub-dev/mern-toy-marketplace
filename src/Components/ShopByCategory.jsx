@@ -10,11 +10,11 @@ import { toast } from 'react-toastify';
 const ShopByCategory = ({ shop_category: categories }) => {
     const { isUser } = useAuthContext()
     const navigate = useNavigate()
-    const handleViewPage = () => {
+    const handleViewPage = (id) => {
         if (!isUser) {
             toast.warning('You have to log in first to view details')
-            navigate('/login')
         }
+        navigate(`/toy/${id}`)
     }
     return (
         <>
@@ -36,15 +36,15 @@ const ShopByCategory = ({ shop_category: categories }) => {
                             <div className="mt-8 flex flex-col md:flex-row items-center gap-5 justify-center">
                                 {category.toys.map((toy, index) => (
                                     <div key={index} className="bg-[#301008] max-w-[300px] rounded-lg shadow-md p-6">
-                                        <img src={toy.image} alt={toy.name} className="w-full h-40 object-cover rounded-lg mb-4" />
+                                        <img src={toy.image} alt={toy.name} className="min-w-[200px] h-40 object-cover rounded-lg mb-4" />
 
                                         <h3 className="text-xl font-semibold mb-2">{toy.name}</h3>
-                                        <p className="text-gray-500 mb-2">{toy.price}</p>
+                                        <p className="text-gray-500 mb-2">${toy.price}</p>
                                         <div className="flex items-center">
                                             <span className="text-yellow-500">{toy.rating} </span>
                                             <span className="text-sm text-gray-500">(Rating)</span>
                                         </div>
-                                        <button onClick={handleViewPage} className="px-4 py-2 rounded-lg mt-4">
+                                        <button onClick={() => handleViewPage(toy._id)} className="px-4 py-2 rounded-lg mt-4">
                                             View Details
                                         </button>
                                     </div>
@@ -55,7 +55,7 @@ const ShopByCategory = ({ shop_category: categories }) => {
                     ))}
                 </Tabs>
             </section>
-        
+
         </>
     );
 };
