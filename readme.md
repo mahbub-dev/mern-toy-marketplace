@@ -7,3 +7,5 @@
 - Login Page: Design a login page that allows users to securely log into their accounts. Include fields for username/email and password, and implement authentication mechanisms to ensure user privacy and data security. Consider providing an option for users to recover their passwords if forgotten.
 
 - Registration Page: Create a registration page where new users can sign up for an account. Include fields for necessary information such as name, email, and password. Implement validation to ensure valid email addresses and secure passwords.
+
+- **Live Link**: https://geneus-gadgets.web.app/
