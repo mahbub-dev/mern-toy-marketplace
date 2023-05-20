@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
+import useTitle from '../Hooks/useTitle';
 
 const NotFoundPage = () => {
+  useTitle('Not Found')
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-700">
       <img src="https://d3jl769oy69y7b.cloudfront.net/2022/08/blizzard.gif" alt="404 Error" className="w-80 h-80 mb-8" />

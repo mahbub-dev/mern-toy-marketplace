@@ -3,13 +3,14 @@ import ConfirmModal from "../Components/ConfirmModal";
 import UpdateModal from "../Components/UpdateModal";
 import { useLoaderData } from "react-router-dom";
 import { toast } from "react-toastify";
+import useTitle from "../Hooks/useTitle";
 const MyToys = () => {
     const [isDeleteOpen, setIsDeleteOpen] = useState({ isOpen: false, id: '' })
     const [isUpdateOpen, setIsUpdateOpen] = useState({ isOpen: false, data: {} })
     const data = useLoaderData()
     const [toys, setToys] = useState(data)
     const url = import.meta.env.VITE_APP_API_SERVER_URI
-
+    useTitle('My Toys')
 
     const handleUpdateToy = async (price, quantity, description) => {
         try {

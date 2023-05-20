@@ -5,7 +5,9 @@ import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import app from '../../firebase.config';
 import { useAuthContext } from '../Providers/authProvider';
 import { toast } from 'react-toastify';
+import useTitle from '../Hooks/useTitle';
 const Login = () => {
+    useTitle('Login')
     const location = useLocation();
     const from = location.state?.from?.pathname || '/'
     const { isUser, setLoggedUser } = useAuthContext()

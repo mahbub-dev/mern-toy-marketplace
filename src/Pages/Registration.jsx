@@ -5,9 +5,11 @@ import app from '../../firebase.config';
 import { toast } from 'react-toastify';
 import { useAuthContext } from '../Providers/authProvider';
 import { Navigate } from 'react-router-dom';
+import useTitle from '../Hooks/useTitle';
 
 
 const Registration = () => {
+    useTitle('Register')
     const { isUser, setLoggedUser } = useAuthContext()
     const navigate = useNavigate()
     const [name, setName] = useState('');

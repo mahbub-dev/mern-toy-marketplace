@@ -4,9 +4,11 @@ import ShopByCategory from "../Components/ShopByCategory"
 import DealsAndDiscounts from "../Components/DealsAndDIscount"
 import AboutUs from "../Components/AboutUs"
 import { useLoaderData } from "react-router-dom"
+import useTitle from "../Hooks/useTitle"
 
 const Home = () => {
   const { galary, shop_category } = useLoaderData()
+  useTitle('Home')
   return (
     <div className="bg-gray-700 text-white">
       <BannerSlider />

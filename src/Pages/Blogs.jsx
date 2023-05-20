@@ -1,5 +1,8 @@
+import useTitle from "../Hooks/useTitle"
+
 /* eslint-disable react/no-unescaped-entities */
 const Blogs = () => {
+    useTitle('Blogs')
     return (
         <div className="container mx-auto px-4">
             <div className="mb-8">

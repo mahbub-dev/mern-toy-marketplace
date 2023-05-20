@@ -1,8 +1,10 @@
 
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+import useTitle from '../Hooks/useTitle';
 
 const AddToyPage = () => {
+    useTitle('Add Toy')
     const [formData, setFormData] = useState({
         picture: '',
         name: '',
