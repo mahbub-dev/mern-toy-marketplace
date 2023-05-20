@@ -7,13 +7,14 @@ import { useAuthContext } from '../Providers/authProvider';
 import { toast } from 'react-toastify';
 const Login = () => {
     const location = useLocation();
+    const from = location.state?.from?.pathname || '/'
     const { isUser, setLoggedUser } = useAuthContext()
     const auth = getAuth(app);
     const navigate = useNavigate()
     const provider = new GoogleAuthProvider()
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    if (isUser) { return <Navigate to={'/'} /> }
+    if (isUser) { return <Navigate to={from} replace /> }
     const handleSubmit = (e) => {
         e.preventDefault();
         signInWithEmailAndPassword(auth, email, password)
@@ -21,8 +22,7 @@ const Login = () => {
                 const user = userCredential.user;
                 setLoggedUser(user)
                 localStorage.setItem('uid', user?.uid)
-                const from = location.state?.from || '/';
-                navigate(from, { replace: true })
+                navigate(from)
             })
             .catch((error) => {
                 const errorMessage = error.message;
@@ -36,8 +36,7 @@ const Login = () => {
                 // Handle successful Google login
                 localStorage.setItem('uid', result?.user?.uid)
                 setLoggedUser(result.user)
-                const from = location.state?.from || '/';
-                navigate(from, { replace: true })
+                navigate(from)
 
             })
             .catch((error) => {

@@ -13,11 +13,7 @@ const AllToys = () => {
         setToys(data)
     };
 
-    const handleView = (id) => {
-        if (isUser) {
-            navigate(`/toy/${id}`)
-        } else navigate('/login')
-    }
+
     return (
         <div className="container min-h-[600px] mx-auto bg-gray-700 pb-5 px-4">
             <h2 className="text-3xl text-white font-bold text-center mb-4 py-5">All Toys</h2>
@@ -59,7 +55,7 @@ const AllToys = () => {
                                 <td className="py-2 px-4 border">${toy.price}</td>
                                 <td className="py-2 px-4 border">{toy.availableQuantity}</td>
                                 <td className="py-2 px-4 border">
-                                    <button onClick={() => handleView(toy._id)} className=" hover:bg-blue-600 text-white py-1 px-3 rounded">
+                                    <button onClick={() => navigate(`/toy/${toy._id}`)} className=" hover:bg-blue-600 text-white py-1 px-3 rounded">
                                         View Details
                                     </button>
                                 </td>

@@ -68,7 +68,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/toy/:id',
-                element: <PrivateRoutes> <ToyDetailsPage /></PrivateRoutes>
+                element: <PrivateRoutes path={'toy/:id'}> <ToyDetailsPage /></PrivateRoutes>
                 , loader: async ({ params }) => {
                     try {
                         const res = await fetch(`${url}/toy/${params.id}`)

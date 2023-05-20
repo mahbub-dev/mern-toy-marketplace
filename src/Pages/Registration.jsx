@@ -8,7 +8,7 @@ import { Navigate } from 'react-router-dom';
 
 
 const Registration = () => {
-    const { isUser } = useAuthContext()
+    const { isUser, setLoggedUser } = useAuthContext()
     const navigate = useNavigate()
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -23,6 +23,7 @@ const Registration = () => {
                 // Signed in 
                 const user = userCredential.user;
                 updateProfile(user, { displayName: name, photoURL })
+                setLoggedUser(user)
                 localStorage.setItem('uid', user.uid)
                 navigate('/')
             })
@@ -36,7 +37,7 @@ const Registration = () => {
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-700">
             <div className="bg-white p-8 md:w-[500px] rounded shadow-md">
-            <h2 className="text-2xl font-bold mb-4">Registration</h2>
+                <h2 className="text-2xl font-bold mb-4">Registration</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <label htmlFor="name" className="block text-gray-700 font-bold mb-2">
