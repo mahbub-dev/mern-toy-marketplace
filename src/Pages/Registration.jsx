@@ -26,7 +26,7 @@ const Registration = () => {
                 const user = userCredential.user;
                 updateProfile(user, { displayName: name, photoURL })
                 setLoggedUser(user)
-                localStorage.setItem('uid', user.uid)
+                localStorage.setItem('email', user.email)
                 navigate('/')
             })
             .catch((error) => {

@@ -4,11 +4,15 @@ import UpdateModal from "../Components/UpdateModal";
 import { useLoaderData } from "react-router-dom";
 import { toast } from "react-toastify";
 import useTitle from "../Hooks/useTitle";
+import { useAuthContext } from "../Providers/authProvider";
+
 const MyToys = () => {
     const [isDeleteOpen, setIsDeleteOpen] = useState({ isOpen: false, id: '' })
     const [isUpdateOpen, setIsUpdateOpen] = useState({ isOpen: false, data: {} })
     const data = useLoaderData()
     const [toys, setToys] = useState(data)
+    const { loggedUser } = useAuthContext()
+    console.log(loggedUser)
     const url = import.meta.env.VITE_APP_API_SERVER_URI
     useTitle('My Toys')
 
@@ -52,7 +56,7 @@ const MyToys = () => {
 
     const handleSorting = async (sortOrder) => {
         try {
-            const res = await fetch(`${url}/mytoy/?sort=${sortOrder}`)
+            const res = await fetch(`${url}/mytoy/${loggedUser.email}/?sort=${sortOrder}`)
             const data = await res.json()
             setToys(data)
         } catch (error) {

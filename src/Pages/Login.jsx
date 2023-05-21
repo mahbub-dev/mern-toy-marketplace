@@ -23,7 +23,7 @@ const Login = () => {
             .then((userCredential) => {
                 const user = userCredential.user;
                 setLoggedUser(user)
-                localStorage.setItem('uid', user?.uid)
+                localStorage.setItem('email', user?.email)
                 navigate(from)
             })
             .catch((error) => {
@@ -36,7 +36,7 @@ const Login = () => {
         signInWithPopup(auth, provider)
             .then((result) => {
                 // Handle successful Google login
-                localStorage.setItem('uid', result?.user?.uid)
+                localStorage.setItem('email', result?.user?.email)
                 setLoggedUser(result.user)
                 navigate(from)
 

@@ -6,7 +6,7 @@ import app from "../../firebase.config"
 const AuthContext = createContext()
 const AuthProvider = ({ children }) => {
     const [loggedUser, setLoggedUser] = useState('')
-    const isUser = localStorage.getItem('uid')
+    const isUser = localStorage.getItem('email')
     const auth = getAuth(app)
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {

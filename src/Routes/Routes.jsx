@@ -15,7 +15,6 @@ import MyToys from "../Pages/MyToys";
 import { toast } from "react-toastify";
 const url = import.meta.env.VITE_APP_API_SERVER_URI
 
-
 const router = createBrowserRouter([
     {
         path: "/",
@@ -68,7 +67,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/toy/:id',
-                element: <PrivateRoutes path={'toy/:id'}> <ToyDetailsPage /></PrivateRoutes>
+                element: <PrivateRoutes> <ToyDetailsPage /></PrivateRoutes>
                 , loader: async ({ params }) => {
                     try {
                         const res = await fetch(`${url}/toy/${params.id}`)
@@ -85,7 +84,7 @@ const router = createBrowserRouter([
                 element: <PrivateRoutes> <MyToys /></PrivateRoutes>,
                 loader: async () => {
                     try {
-                        const res = await fetch(`${url}/mytoy`)
+                        const res = await fetch(`${url}/mytoy/${localStorage.getItem('email')}`)
                         const data = await res.json()
                         return data
                     } catch (error) {
