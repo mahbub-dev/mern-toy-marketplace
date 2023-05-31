@@ -3,10 +3,11 @@ import logo from '../../assets/logo.png'
 import { useAuthContext } from '../../Providers/authProvider';
 import DotSpinner from '../Loader';
 import menu from '../../assets/menu.png'
-import { Link,  useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 const Navbar = () => {
     const path = useLocation().pathname.split('/')[1]
-    const { isUser, loggedUser } = useAuthContext()
+    const navigate = useNavigate()
+    const { isUser, loggedUser, logOut } = useAuthContext()
     const [isOpen, setIsOpen] = useState(false);
     const toggleNavbar = () => {
         setIsOpen(!isOpen);
@@ -43,12 +44,15 @@ const Navbar = () => {
 
                         {/* Blogs */}
                         <Link to="/blogs" className={`text-gray-300 hover:bg-gray-700 ${path === 'blogs' && 'bg-gray-700'} hover:text-white px-3 py-2 rounded-md text-sm font-medium`}>Blogs</Link>
+                        {
+                            isUser && <button onClick={() => { logOut(); navigate('/login') }}  className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Logout</button>
+                        }
                     </div>
                     <div className="flex items-center">
                         {
-                        isUser ?
-                            loggedUser?.photoURL ? <img className="h-[35px] w-[35px] rounded-full" src={loggedUser?.photoURL} title={loggedUser?.displayName} alt="Profile" /> : <DotSpinner /> :
-                            <Link to="/login" className={`text-gray-300 hover:bg-gray-700 hover:text-white ${path === 'login' && 'bg-gray-700'}  px-3 py-2 rounded-md text-sm font-medium`}>Login</Link>
+                            isUser ?
+                                loggedUser?.photoURL ? <img className="h-[35px] w-[35px] rounded-full" src={loggedUser?.photoURL} title={loggedUser?.displayName} alt="Profile" /> : <DotSpinner /> :
+                                <Link to="/login" className={`text-gray-300 hover:bg-gray-700 hover:text-white ${path === 'login' && 'bg-gray-700'}  px-3 py-2 rounded-md text-sm font-medium`}>Login</Link>
                         }
 
                     </div>
@@ -67,6 +71,9 @@ const Navbar = () => {
                     <Link to="/add-toy" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Add A Toy</Link>
                     {/* Blogs */}
                     <Link to="/blogs" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Blogs</Link>
+                    {
+                        isUser && <button  onClick={() => { logOut(); navigate('/login') }}   className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Logout</button>
+                    }
                 </div>
             </div>
         </nav>

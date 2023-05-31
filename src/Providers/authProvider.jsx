@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
 import { createContext, useContext, useEffect, useState } from "react"
-import { onAuthStateChanged, getAuth } from 'firebase/auth'
+import { onAuthStateChanged, signOut, getAuth } from 'firebase/auth'
 import app from "../../firebase.config"
 const AuthContext = createContext()
 const AuthProvider = ({ children }) => {
@@ -11,14 +11,16 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             setLoggedUser(user)
-           
         })
         return unsubscribe()
     }, [auth])
 
-    
+    const logOut = () => {
+        signOut(auth)
+        localStorage.clear()
+    }
     // provide data 
-    const data = { loggedUser, isUser,setLoggedUser }
+    const data = { loggedUser, isUser, setLoggedUser,logOut }
     return (
         <AuthContext.Provider value={data} >
             {children}

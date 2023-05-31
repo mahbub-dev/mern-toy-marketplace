@@ -13,3 +13,6 @@ button{
     background-color: yellow !important;
     color: black !important;
 }
+.slick-dots li button{
+    display: none !important;;
+}
